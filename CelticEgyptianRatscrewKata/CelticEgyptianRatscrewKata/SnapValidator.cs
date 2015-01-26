@@ -15,7 +15,7 @@ namespace CelticEgyptianRatscrewKata
             checkers = new List<IChecker>
             {
                 new BlackQueenChecker(),
-                new SandwichChecker(),
+                new SandwichChecker(2),
             };
         }
 
@@ -34,10 +34,12 @@ namespace CelticEgyptianRatscrewKata
     {
         Queue<Card> lastTwo = new Queue<Card>();
 
-        public SandwichChecker()
+        public SandwichChecker(int n)
         {
-            lastTwo.Enqueue(null);
-            lastTwo.Enqueue(null);
+            for (int i = 0; i < n; i++)
+            {
+                lastTwo.Enqueue(null);
+            }
         }
 
         public bool IsSnap(Card card)
