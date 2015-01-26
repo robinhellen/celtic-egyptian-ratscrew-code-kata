@@ -94,7 +94,7 @@ namespace CelticEgyptianRatscrewKata.Tests
             var expectedCardsInStack = new List<Card>
             {
                 new Card(Suit.Spades, Rank.Queen),
-                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Ten),
             };
 
             var stack = new Stack(expectedCardsInStack);
@@ -111,6 +111,22 @@ namespace CelticEgyptianRatscrewKata.Tests
                 new Card(Suit.Hearts, Rank.Queen),
                 new Card(Suit.Spades, Rank.Ten),
                 new Card(Suit.Clubs, Rank.Queen),
+            };
+
+            var stack = new Stack(expectedCardsInStack);
+            var validator = new SnapValidator();
+
+            Assert.True(validator.IsSnapValid(stack));
+        }
+
+        [Test]
+        public void BasicSnapTest()
+        {
+            var expectedCardsInStack = new List<Card>
+            {
+                new Card(Suit.Hearts, Rank.Queen),
+                new Card(Suit.Clubs, Rank.Queen),
+                new Card(Suit.Spades, Rank.Ten),
             };
 
             var stack = new Stack(expectedCardsInStack);

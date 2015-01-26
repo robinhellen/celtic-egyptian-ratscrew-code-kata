@@ -16,6 +16,7 @@ namespace CelticEgyptianRatscrewKata
             {
                 new BlackQueenChecker(),
                 new SandwichChecker(2),
+                new SandwichChecker(1),
             };
         }
 
