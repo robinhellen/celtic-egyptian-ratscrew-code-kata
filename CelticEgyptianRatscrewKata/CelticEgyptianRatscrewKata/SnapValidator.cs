@@ -12,7 +12,11 @@ namespace CelticEgyptianRatscrewKata
 
         public SnapValidator()
         {
-            checkers = new List<IChecker>{new BlackQueenChecker()};
+            checkers = new List<IChecker>
+            {
+                new BlackQueenChecker(),
+                new SandwichChecker(),
+            };
         }
 
         public bool IsSnapValid(Stack stack)
@@ -23,6 +27,25 @@ namespace CelticEgyptianRatscrewKata
                     return true;
             }
             return false;
+        }
+    }
+
+    public class SandwichChecker : IChecker
+    {
+        Queue<Card> lastTwo = new Queue<Card>();
+
+        public SandwichChecker()
+        {
+            lastTwo.Enqueue(null);
+            lastTwo.Enqueue(null);
+        }
+
+        public bool IsSnap(Card card)
+        {
+            var cardToMatch = lastTwo.Dequeue();
+            lastTwo.Enqueue(card);
+
+            return cardToMatch != null && cardToMatch.Rank == card.Rank;
         }
     }
 
