@@ -29,4 +29,14 @@ namespace CelticEgyptianRatscrewKata.Tests
             
         }
     }
+
+    public class SnapValidatorTests
+    {
+        public SnapValidatorTests()
+        {
+            
+        }
+    }
+
+
 }
