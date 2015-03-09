@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D313EABF-7C55-4216-AA7D-47BA7C7D0A13}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B2FBAF6B-238F-4748-BD2F-3FC44325D420}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CelticEgyptianRatscrewKata</RootNamespace>
-    <AssemblyName>CelticEgyptianRatscrewKata</AssemblyName>
+    <RootNamespace>ConsoleBasedGame</RootNamespace>
+    <AssemblyName>ConsoleBasedGame</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,12 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,41 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="GameSetup\Dealer.cs" />
-    <Compile Include="GameSetup\IDealer.cs" />
-    <Compile Include="GameSetup\IRandomNumberGenerator.cs" />
-    <Compile Include="GameSetup\IShuffler.cs" />
-    <Compile Include="GameSetup\RandomNumberGenerator.cs" />
-    <Compile Include="GameSetup\Shuffler.cs" />
-    <Compile Include="Game\GameController.cs" />
-    <Compile Include="Game\GameFactory.cs" />
-    <Compile Include="Game\GameState.cs" />
-    <Compile Include="Game\IGameState.cs" />
-    <Compile Include="Game\IPlayer.cs" />
-    <Compile Include="Cards.cs" />
-    <Compile Include="Game\Player.cs" />
+    <Compile Include="PlayerInfo.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rank.cs" />
-    <Compile Include="SnapRules\DarkQueenSnapRule.cs" />
-    <Compile Include="SnapRules\IRule.cs" />
-    <Compile Include="SnapRules\ISnapValidator.cs" />
-    <Compile Include="SnapRules\SnapValidator.cs" />
-    <Compile Include="SnapRules\StandardSnapRule.cs" />
-    <Compile Include="Tests\DarkQueenSnapRuleTests.cs" />
-    <Compile Include="SnapRules\SandwichSnapRule.cs" />
-    <Compile Include="Tests\DealerTests.cs" />
-    <Compile Include="Tests\GameControllerTests.cs" />
-    <Compile Include="Tests\SandwichSnapRuleTests.cs" />
-    <Compile Include="Tests\ShufflerTests.cs" />
-    <Compile Include="Tests\SnapValidatorTests.cs" />
-    <Compile Include="Suit.cs" />
-    <Compile Include="Tests\StandardSnapRuleTests.cs" />
+    <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CelticEgyptianRatscrewKata\CelticEgyptianRatscrewKata.csproj">
+      <Project>{D313EABF-7C55-4216-AA7D-47BA7C7D0A13}</Project>
+      <Name>CelticEgyptianRatscrewKata</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

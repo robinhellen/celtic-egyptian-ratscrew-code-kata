@@ -11,6 +11,10 @@
             m_Rank = rank;
         }
 
+        public Rank Rank { get { return m_Rank; } }
+
+        public Suit Suit { get { return m_Suit; } }
+
         public override string ToString()
         {
             return string.Format("Card {0} of {1}", m_Rank, m_Suit);
