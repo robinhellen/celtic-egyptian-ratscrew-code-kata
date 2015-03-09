@@ -53,12 +53,12 @@ namespace CelticEgyptianRatscrewKata.Game
                 {
                     var cardPlayed = m_GameState.PlayCard(player.Name);
                     nextPlayer = m_Players[(m_Players.IndexOf(player) + 1)%m_Players.Count];
-                    m_Reporter.OnCardPlayed(player, cardPlayed, GetReport(player));
+                    m_Reporter.OnCardPlayed(player, cardPlayed, GetReport());
                 }
                 else
                 {
                     var cardPlayed = m_GameState.PlayCard(player.Name, false);
-                    PenalisePlayer(player, reporter => reporter.OnPlayerPlayedOutOfTurn(player, cardPlayed, GetReport(player)));
+                    PenalisePlayer(player, reporter => reporter.OnPlayerPlayedOutOfTurn(player, cardPlayed, GetReport()));
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace CelticEgyptianRatscrewKata.Game
             if (m_SnapValidator.CanSnap(m_GameState.Stack))
             {
                 m_GameState.WinStack(player.Name);
-                m_Reporter.OnStackSnapped(player, GetReport(player));
+                m_Reporter.OnStackSnapped(player, GetReport());
                 m_NaughtyList.Clear();
             }
             else
@@ -96,7 +96,7 @@ namespace CelticEgyptianRatscrewKata.Game
             }
         }
 
-        private TurnReport GetReport(IPlayer lastPlayed)
+        private TurnReport GetReport()
         {
             return new TurnReport()
             {
