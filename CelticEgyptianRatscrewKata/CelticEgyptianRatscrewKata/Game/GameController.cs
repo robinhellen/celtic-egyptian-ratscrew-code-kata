@@ -15,6 +15,7 @@ namespace CelticEgyptianRatscrewKata.Game
         private readonly IShuffler m_Shuffler;
         private readonly IList<IPlayer> m_Players;
         private readonly IGameState m_GameState;
+        private readonly ISet<IPlayer> m_NaughtyList;
 
         private IGameEventReporter m_Reporter;
 
@@ -26,6 +27,7 @@ namespace CelticEgyptianRatscrewKata.Game
             m_Dealer = dealer;
             m_Shuffler = shuffler;
             m_Reporter = mReporter;
+            m_NaughtyList = new HashSet<IPlayer>();
         }
 
         public bool AddPlayer(IPlayer player)
@@ -50,10 +52,26 @@ namespace CelticEgyptianRatscrewKata.Game
         {
             AddPlayer(player);
 
+            if(m_NaughtyList.Contains(player))
+            {
+                m_Reporter.OnPlayerAttemptedSnapWhilePenalised(player);
+                return;
+            }
             if (m_SnapValidator.CanSnap(m_GameState.Stack))
             {
                 m_GameState.WinStack(player.Name);
                 m_Reporter.OnStackSnapped(player, GetReport(player));
+            }
+            else
+            {
+                m_NaughtyList.Add(player);
+                m_Reporter.OnPlayerPenalised(player);
+
+                if(m_Players.Count == m_NaughtyList.Count)
+                {
+                    m_NaughtyList.Clear();
+                    m_Reporter.OnPenaltyDeadlockCleared();
+                }
             }
         }
 
@@ -106,5 +124,8 @@ namespace CelticEgyptianRatscrewKata.Game
     {
         void OnCardPlayed(IPlayer player, Card card, TurnReport report);
         void OnStackSnapped(IPlayer player, TurnReport report);
+        void OnPlayerPenalised(IPlayer player);
+        void OnPlayerAttemptedSnapWhilePenalised(IPlayer player);
+        void OnPenaltyDeadlockCleared();
     }
 }

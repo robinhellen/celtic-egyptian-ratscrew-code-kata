@@ -78,6 +78,21 @@ namespace ConsoleBasedGame
             Console.WriteLine("{0} snapped the stack.", player.Name);
             WriteTurnReport(report);
         }
+
+        public void OnPlayerPenalised(IPlayer player)
+        {
+            Console.WriteLine("{0} cannot snap any longer.", player.Name);
+        }
+
+        public void OnPlayerAttemptedSnapWhilePenalised(IPlayer player)
+        {
+            Console.WriteLine("Naughty player, you're in the sin bin.");
+        }
+
+        public void OnPenaltyDeadlockCleared()
+        {
+            Console.WriteLine("Deadlock cleared.");
+        }
     }
 
     internal enum PlayerAction
