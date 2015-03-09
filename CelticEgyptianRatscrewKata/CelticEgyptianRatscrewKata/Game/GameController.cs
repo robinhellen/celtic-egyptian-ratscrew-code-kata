@@ -76,6 +76,7 @@ namespace CelticEgyptianRatscrewKata.Game
             {
                 m_GameState.WinStack(player.Name);
                 m_Reporter.OnStackSnapped(player, GetReport(player));
+                m_NaughtyList.Clear();
             }
             else
             {
