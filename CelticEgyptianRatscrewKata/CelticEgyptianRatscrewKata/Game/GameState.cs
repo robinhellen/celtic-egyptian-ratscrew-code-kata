@@ -36,13 +36,21 @@ namespace CelticEgyptianRatscrewKata.Game
             m_Decks.Add(playerId, deck);
         }
 
-        public Card PlayCard(string playerId)
+        public Card PlayCard(string playerId, bool addToTop = true)   
         {
             if (!m_Decks.ContainsKey(playerId)) throw new ArgumentException("The selected player doesn't exist");
             if (!m_Decks[playerId].Any()) throw new ArgumentException("The selected player doesn't have any cards left");
 
             var topCard = m_Decks[playerId].Pop();
-            m_Stack.AddToTop(topCard);
+
+            if(addToTop)
+            {
+                m_Stack.AddToTop(topCard);
+            }
+            else 
+            {
+                m_Stack.AddToBottom(topCard);
+            }
             return topCard;
         }
 

@@ -81,7 +81,7 @@ namespace ConsoleBasedGame
 
         public void OnPlayerPenalised(IPlayer player)
         {
-            Console.WriteLine("{0} cannot snap any longer.", player.Name);
+            Console.WriteLine("{0} tried to snap when not valid and is now in the sin bin.", player.Name);
         }
 
         public void OnPlayerAttemptedSnapWhilePenalised(IPlayer player)
@@ -92,6 +92,12 @@ namespace ConsoleBasedGame
         public void OnPenaltyDeadlockCleared()
         {
             Console.WriteLine("Deadlock cleared.");
+        }
+
+        public void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report)
+        {
+            Console.WriteLine("{0} played {1} of {2} out of turn and is now in the sin bin.", player.Name, card.Rank, card.Suit);
+            WriteTurnReport(report);
         }
     }
 

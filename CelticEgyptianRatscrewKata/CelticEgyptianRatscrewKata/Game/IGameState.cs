@@ -20,7 +20,7 @@ namespace CelticEgyptianRatscrewKata.Game
         /// <summary>
         /// Play the top card of the given player's deck.
         /// </summary>
-        Card PlayCard(string playerId);
+        Card PlayCard(string playerId, bool addToTop = true);
 
         /// <summary>
         /// Wins the stack for the given player.
