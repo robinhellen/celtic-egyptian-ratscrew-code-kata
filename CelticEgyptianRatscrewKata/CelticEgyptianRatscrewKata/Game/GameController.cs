@@ -52,8 +52,8 @@ namespace CelticEgyptianRatscrewKata.Game
                 if(nextPlayer == player)
                 {
                     var cardPlayed = m_GameState.PlayCard(player.Name);
-                    m_Reporter.OnCardPlayed(player, cardPlayed, GetReport(player));
                     nextPlayer = m_Players[(m_Players.IndexOf(player) + 1)%m_Players.Count];
+                    m_Reporter.OnCardPlayed(player, cardPlayed, GetReport(player));
                 }
                 else
                 {
