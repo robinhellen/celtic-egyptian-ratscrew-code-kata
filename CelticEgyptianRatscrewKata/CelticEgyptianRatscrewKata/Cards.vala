@@ -1,4 +1,5 @@
 using Gee;
+
 namespace CelticEgyptianRatscrewKata
 {
     public class Cards : Object, Iterable<Card>
