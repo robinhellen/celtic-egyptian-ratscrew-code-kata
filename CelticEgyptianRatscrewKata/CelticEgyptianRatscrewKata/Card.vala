@@ -1,4 +1,4 @@
-﻿namespace CelticEgyptianRatscrewKata
+namespace CelticEgyptianRatscrewKata
 {
     public class Card
     {

@@ -1,4 +1,4 @@
-﻿namespace CelticEgyptianRatscrewKata.Game
+namespace CelticEgyptianRatscrewKata.Game
 {
     /// <summary>
     /// Represents a player of the game.

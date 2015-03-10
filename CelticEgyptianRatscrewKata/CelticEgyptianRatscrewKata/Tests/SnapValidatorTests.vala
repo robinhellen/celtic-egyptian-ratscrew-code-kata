@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CelticEgyptianRatscrewKata.SnapRules;
 using Moq;
 using NUnit.Framework;

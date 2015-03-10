@@ -1,4 +1,4 @@
-﻿namespace CelticEgyptianRatscrewKata.GameSetup
+namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public interface IShuffler
     {

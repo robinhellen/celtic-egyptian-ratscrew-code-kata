@@ -1,4 +1,4 @@
-﻿namespace CelticEgyptianRatscrewKata.SnapRules
+namespace CelticEgyptianRatscrewKata.SnapRules
 {
     public class SandwichSnapRule : IRule
     {

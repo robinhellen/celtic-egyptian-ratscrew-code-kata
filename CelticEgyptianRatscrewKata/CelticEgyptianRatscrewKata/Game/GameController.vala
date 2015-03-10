@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CelticEgyptianRatscrewKata.GameSetup;
@@ -17,7 +17,7 @@ namespace CelticEgyptianRatscrewKata.Game
         private readonly IList<IPlayer> m_Players;
         private readonly IGameState m_GameState;
         private readonly ISet<IPlayer> m_NaughtyList;
-        
+
         private IGameEventReporter m_Reporter;
 
         private IPlayer nextPlayer;

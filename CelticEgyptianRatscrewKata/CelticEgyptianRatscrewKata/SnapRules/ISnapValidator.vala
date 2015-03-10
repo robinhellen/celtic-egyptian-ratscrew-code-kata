@@ -1,4 +1,4 @@
-namespace CelticEgyptianRatscrewKata.SnapRules
+espace CelticEgyptianRatscrewKata.SnapRules
 {
     public interface ISnapValidator
     {

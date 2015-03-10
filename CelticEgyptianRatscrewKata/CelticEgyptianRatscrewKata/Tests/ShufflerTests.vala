@@ -1,4 +1,4 @@
-﻿using CelticEgyptianRatscrewKata.GameSetup;
+using CelticEgyptianRatscrewKata.GameSetup;
 using Moq;
 using NUnit.Framework;
 
