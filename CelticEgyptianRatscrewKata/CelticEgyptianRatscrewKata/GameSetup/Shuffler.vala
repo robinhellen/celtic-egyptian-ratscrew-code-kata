@@ -5,10 +5,11 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public class Shuffler : IShuffler
     {
-        private readonly IRandomNumberGenerator m_RandomNumberGenerator;
+        private IRandomNumberGenerator m_RandomNumberGenerator;
 
-        public Shuffler() : this(new RandomNumberGenerator())
+        public Shuffler.Default()
         {
+            m_RandomNumberGenerator = new RandomNumberGenerator();
         }
 
         public Shuffler(IRandomNumberGenerator randomNumberGenerator)

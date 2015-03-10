@@ -11,12 +11,12 @@ namespace CelticEgyptianRatscrewKata.Game
     /// </summary>
     public class GameController
     {
-        private readonly ISnapValidator m_SnapValidator;
-        private readonly IDealer m_Dealer;
-        private readonly IShuffler m_Shuffler;
-        private readonly IList<IPlayer> m_Players;
-        private readonly IGameState m_GameState;
-        private readonly ISet<IPlayer> m_NaughtyList;
+        private ISnapValidator m_SnapValidator;
+        private IDealer m_Dealer;
+        private IShuffler m_Shuffler;
+        private IList<IPlayer> m_Players;
+        private IGameState m_GameState;
+        private ISet<IPlayer> m_NaughtyList;
 
         private IGameEventReporter m_Reporter;
 

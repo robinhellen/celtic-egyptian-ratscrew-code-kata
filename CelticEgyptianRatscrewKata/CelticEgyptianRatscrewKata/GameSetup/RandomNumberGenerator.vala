@@ -4,9 +4,9 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 {
     class RandomNumberGenerator : IRandomNumberGenerator
     {
-        private readonly Random m_Random;
+        private Random m_Random;
 
-        public RandomNumberGenerator()
+        public RandomNumberGenerator.Default()
         {
             m_Random = new Random();
         }

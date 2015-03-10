@@ -8,6 +8,6 @@ namespace CelticEgyptianRatscrewKata.Game
         /// <summary>
         /// The name of the player, <em>must</em> be unique.
         /// </summary>
-        string Name { get; } 
+        public abstract string Name { get; }
     }
 }

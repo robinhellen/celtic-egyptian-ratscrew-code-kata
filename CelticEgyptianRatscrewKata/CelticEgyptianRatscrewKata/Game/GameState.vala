@@ -10,14 +10,17 @@ namespace CelticEgyptianRatscrewKata.Game
     /// </summary>
     public class GameState : IGameState
     {
-        private readonly Cards m_Stack;
-        private readonly IDictionary<string, Cards> m_Decks;
+        private Cards m_Stack;
+        private IDictionary<string, Cards> m_Decks;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public GameState()
-            : this(Cards.Empty(), new Dictionary<string, Cards>()) {}
+        public GameState.Default()
+        {
+            m_Stack = Cards.Empty();
+            m_Decks = new Dictionary<string, Cards>();
+        }
 
         /// <summary>
         /// Constructor to allow setting the central stack.
@@ -36,7 +39,7 @@ namespace CelticEgyptianRatscrewKata.Game
             m_Decks.Add(playerId, deck);
         }
 
-        public Card PlayCard(string playerId, bool addToTop = true)   
+        public Card PlayCard(string playerId, bool addToTop = true)
         {
             if (!m_Decks.ContainsKey(playerId)) throw new ArgumentException("The selected player doesn't exist");
             if (!m_Decks[playerId].Any()) throw new ArgumentException("The selected player doesn't have any cards left");
@@ -47,7 +50,7 @@ namespace CelticEgyptianRatscrewKata.Game
             {
                 m_Stack.AddToTop(topCard);
             }
-            else 
+            else
             {
                 m_Stack.AddToBottom(topCard);
             }
@@ -88,14 +91,11 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public GameStateReport GetCurrentStateReport()
         {
-            return new GameStateReport
-            {
-                TopCard = m_Stack.HasCards ? m_Stack.CardAt(0) : null
-                ,
-                StackSize = m_Stack.Count(),
-                PlayerStacks = m_Decks.Select(
-                    x => new Tuple<string, int>(x.Key, x.Value.Count()))
-            };
+            return Object.new(typeof(GameStateReport),
+                TopCard: m_Stack.HasCards ? m_Stack.CardAt(0) : null,
+                StackSize: m_Stack.Count(),
+                PlayerStacks: m_Decks.Select(
+                    x => new Tuple<string, int>(x.Key, x.Value.Count())));
         }
     }
 }

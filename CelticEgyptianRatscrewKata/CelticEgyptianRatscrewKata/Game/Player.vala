@@ -1,4 +1,4 @@
-espace CelticEgyptianRatscrewKata.Game
+namespace CelticEgyptianRatscrewKata.Game
 {
     public class Player : IPlayer
     {

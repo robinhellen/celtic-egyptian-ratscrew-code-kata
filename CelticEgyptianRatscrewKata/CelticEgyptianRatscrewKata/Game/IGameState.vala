@@ -9,7 +9,7 @@ namespace CelticEgyptianRatscrewKata.Game
         /// <summary>
         /// Gets a copy of the current stack of cards.
         /// </summary>
-        Cards Stack { get; }
+        public abstract Cards Stack { get; }
 
         /// <summary>
         /// Add the given player to the game with the given deck.
