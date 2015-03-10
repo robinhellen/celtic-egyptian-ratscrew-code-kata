@@ -1,4 +1,4 @@
-
+using Gee;
 
 using CelticEgyptianRatscrewKata.GameSetup;
 using CelticEgyptianRatscrewKata.SnapRules;
@@ -13,9 +13,9 @@ namespace CelticEgyptianRatscrewKata.Game
         private ISnapValidator m_SnapValidator;
         private IDealer m_Dealer;
         private IShuffler m_Shuffler;
-        private IList<IPlayer> m_Players;
+        private Gee.List<IPlayer> m_Players;
         private IGameState m_GameState;
-        private ISet<IPlayer> m_NaughtyList;
+        private Set<IPlayer> m_NaughtyList;
 
         private IGameEventReporter m_Reporter;
 
@@ -149,4 +149,6 @@ namespace CelticEgyptianRatscrewKata.Game
         void OnPenaltyDeadlockCleared();
         void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report);
     }
+
+    public delegate void Action<T>(T t);
 }
