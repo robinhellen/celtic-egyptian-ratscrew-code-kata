@@ -15,9 +15,9 @@ namespace CelticEgyptianRatscrewKata
 
         public Suit Suit { get { return m_Suit; } }
 
-        public override string ToString()
+        public string to_string()
         {
-            return string.Format("Card {0} of {1}", m_Rank, m_Suit);
+            return @"Card $m_Rank of $m_Suit";
         }
 
         protected bool Equals(Card other)
