@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
+using Gee;
 namespace CelticEgyptianRatscrewKata
 {
-    public class Cards : IEnumerable<Card>
+    public class Cards : Object, Iterable<Card>
     {
-        private readonly List<Card> m_Cards;
+        private List<Card> m_Cards;
 
         public Cards(IEnumerable<Card> cards)
         {
-            m_Cards = new List<Card>(cards);
+            m_Cards = new LinkedList<Card>(cards);
         }
 
         public void AddToTop(Card card)
@@ -42,17 +39,12 @@ namespace CelticEgyptianRatscrewKata
 
         public bool HasCards
         {
-            get { return m_Cards.Count > 0; } 
+            get { return m_Cards.Count > 0; }
         }
 
-        public IEnumerator<Card> GetEnumerator()
+        public Iterator<Card> iterator()
         {
-            return m_Cards.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return m_Cards.iterator();
         }
 
         public static Cards Empty()
@@ -60,12 +52,12 @@ namespace CelticEgyptianRatscrewKata
             return With();
         }
 
-        public static Cards With(Cards cards)
+        public static Cards WithCards(Cards cards)
         {
-            return With(cards.ToArray());
+            return With(cards.m_Cards.to_array());
         }
 
-        public static Cards With(params Card[] cards)
+        public static Cards With(Card[] cards)
         {
             return new Cards(cards);
         }
