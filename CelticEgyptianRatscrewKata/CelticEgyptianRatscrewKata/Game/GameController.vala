@@ -142,12 +142,12 @@ namespace CelticEgyptianRatscrewKata.Game
 
     public interface IGameEventReporter
     {
-        void OnCardPlayed(IPlayer player, Card card, TurnReport report);
-        void OnStackSnapped(IPlayer player, TurnReport report);
-        void OnPlayerPenalised(IPlayer player);
-        void OnPlayerAttemptedSnapWhilePenalised(IPlayer player);
-        void OnPenaltyDeadlockCleared();
-        void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report);
+        public abstract void OnCardPlayed(IPlayer player, Card card, TurnReport report);
+        public abstract void OnStackSnapped(IPlayer player, TurnReport report);
+        public abstract void OnPlayerPenalised(IPlayer player);
+        public abstract void OnPlayerAttemptedSnapWhilePenalised(IPlayer player);
+        public abstract void OnPenaltyDeadlockCleared();
+        public abstract void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report);
     }
 
     public delegate void Action<T>(T t);

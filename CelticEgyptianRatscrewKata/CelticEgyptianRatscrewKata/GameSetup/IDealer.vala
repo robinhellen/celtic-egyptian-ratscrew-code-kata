@@ -3,6 +3,6 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public interface IDealer
     {
-        List<Cards> Deal(int numberOfHands, Cards deck);
+        public abstract List<Cards> Deal(int numberOfHands, Cards deck);
     }
 }

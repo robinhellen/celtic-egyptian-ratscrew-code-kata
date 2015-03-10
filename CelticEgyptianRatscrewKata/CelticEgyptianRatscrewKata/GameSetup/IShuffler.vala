@@ -2,6 +2,6 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public interface IShuffler
     {
-        Cards Shuffle(Cards deck);
+        public abstract Cards Shuffle(Cards deck);
     }
 }
