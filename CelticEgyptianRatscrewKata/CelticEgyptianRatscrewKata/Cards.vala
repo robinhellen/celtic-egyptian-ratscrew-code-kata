@@ -4,9 +4,9 @@ namespace CelticEgyptianRatscrewKata
 {
     public class Cards : Object, Iterable<Card>
     {
-        private List<Card> m_Cards;
+        private Gee.List<Card> m_Cards;
 
-        public Cards(IEnumerable<Card> cards)
+        public Cards(Iterable<Card> cards)
         {
             m_Cards = new LinkedList<Card>(cards);
         }

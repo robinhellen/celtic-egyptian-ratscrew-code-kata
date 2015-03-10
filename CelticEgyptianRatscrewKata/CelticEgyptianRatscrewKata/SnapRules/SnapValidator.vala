@@ -1,11 +1,12 @@
+using Gee;
 
 namespace CelticEgyptianRatscrewKata.SnapRules
 {
     public class SnapValidator : ISnapValidator
     {
-        private IEnumerable<IRule> m_Rules;
+        private Iterable<IRule> m_Rules;
 
-        public SnapValidator(IEnumerable<IRule> rules)
+        public SnapValidator(Iterable<IRule> rules)
         {
             m_Rules = rules;
         }
