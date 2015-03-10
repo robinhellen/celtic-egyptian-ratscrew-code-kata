@@ -3,7 +3,7 @@ default: all
 
 all: CelticEgyptianRatscrewKata.so
 
-CERK_SOURCE_DIRS=. GameSetup Game Tests SnapRules
+CERK_SOURCE_DIRS=. GameSetup Game SnapRules
 CelticEgyptianRatscrewKata_SOURCES=$(foreach folder, $(CERK_SOURCE_DIRS),$(wildcard CelticEgyptianRatscrewKata/$(folder)/*.vala))
 
 
