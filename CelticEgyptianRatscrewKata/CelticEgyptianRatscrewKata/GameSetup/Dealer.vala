@@ -1,22 +1,24 @@
 
+using Gee;
+
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public class Dealer : IDealer
     {
-        public List<Cards> Deal(int numberOfHands, Cards deck)
+        public Gee.List<Cards> Deal(int numberOfHands, Cards deck)
         {
-            var hands = new List<Cards>();
+            var hands = new ArrayList<Cards>();
 
             for (int i = 0; i < numberOfHands; i++)
             {
-                hands.Add(Cards.Empty());
+                hands.add(Cards.Empty());
             }
 
             while (deck.HasCards)
             {
                 for (int i = 0; i < numberOfHands && deck.HasCards; i++)
                 {
-                    hands.ElementAt(i).AddToTop(deck.Pop());
+                    hands[i].AddToTop(deck.Pop());
                 }
             }
 

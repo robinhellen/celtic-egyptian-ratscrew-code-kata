@@ -1,3 +1,4 @@
+using Gee;
 
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
@@ -7,7 +8,7 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 
         public Shuffler.Default()
         {
-            m_RandomNumberGenerator = new RandomNumberGenerator();
+            m_RandomNumberGenerator = new RandomNumberGenerator.Default();
         }
 
         public Shuffler(IRandomNumberGenerator randomNumberGenerator)
@@ -17,18 +18,18 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 
         public Cards Shuffle(Cards deck)
         {
-            var shuffledDeck = new List<Card>();
+            var shuffledDeck = new LinkedList<Card>();
 
-            var unshuffledDeck = Cards.With(deck.ToArray());
+            var unshuffledDeck = Cards.WithCards(deck);
             while (unshuffledDeck.HasCards)
             {
-                var randomInt = m_RandomNumberGenerator.Get(0, unshuffledDeck.Count());
+                var randomInt = m_RandomNumberGenerator.Get(0, unshuffledDeck.fold<int>((_, i) => i + 1, 0));
                 var nextCard = unshuffledDeck.CardAt(randomInt);
                 unshuffledDeck.RemoveCardAt(randomInt);
-                shuffledDeck.Add(nextCard);
+                shuffledDeck.add(nextCard);
             }
 
-            return Cards.With(shuffledDeck.ToArray());
+            return Cards.With(shuffledDeck.to_array());
         }
     }
 }
