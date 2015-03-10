@@ -1,4 +1,4 @@
-
+using Gee;
 
 namespace CelticEgyptianRatscrewKata.Game
 {
@@ -8,7 +8,7 @@ namespace CelticEgyptianRatscrewKata.Game
     public class GameState : IGameState
     {
         private Cards m_Stack;
-        private IDictionary<string, Cards> m_Decks;
+        private Map<string, Cards> m_Decks;
 
         /// <summary>
         /// Default constructor.
@@ -16,13 +16,13 @@ namespace CelticEgyptianRatscrewKata.Game
         public GameState.Default()
         {
             m_Stack = Cards.Empty();
-            m_Decks = new Dictionary<string, Cards>();
+            m_Decks = new HashMap<string, Cards>();
         }
 
         /// <summary>
         /// Constructor to allow setting the central stack.
         /// </summary>
-        public GameState(Cards stack, IDictionary<string, Cards> decks)
+        public GameState(Cards stack, Map<string, Cards> decks)
         {
             m_Stack = stack;
             m_Decks = decks;

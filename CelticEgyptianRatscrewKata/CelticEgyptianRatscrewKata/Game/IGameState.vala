@@ -1,4 +1,4 @@
-
+using Gee;
 
 namespace CelticEgyptianRatscrewKata.Game
 {
@@ -42,6 +42,6 @@ namespace CelticEgyptianRatscrewKata.Game
     {
         public Card TopCard;
         public int StackSize;
-        public IEnumerable<Tuple<string, int>> PlayerStacks;
+        public Map<string, int> PlayerStacks;
     }
 }
