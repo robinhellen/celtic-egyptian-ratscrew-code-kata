@@ -23,7 +23,7 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public GameController(IGameState gameState, ISnapValidator snapValidator, IDealer dealer, IShuffler shuffler, IGameEventReporter mReporter)
         {
-            m_Players = new List<IPlayer>();
+            m_Players = new ArrayList<IPlayer>();
             m_GameState = gameState;
             m_SnapValidator = snapValidator;
             m_Dealer = dealer;
@@ -34,12 +34,12 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public bool AddPlayer(IPlayer player)
         {
-            if (m_Players.Any(x => x.Name == player.Name)) return false;
+            if (m_Players.fold<bool>((x, y) => y || x.Name == player.Name, false)) return false;
 
             if(nextPlayer == null)
                 nextPlayer = player;
 
-            m_Players.Add(player);
+            m_Players.add(player);
             m_GameState.AddPlayer(player.Name, Cards.Empty());
             return true;
         }
@@ -51,7 +51,7 @@ namespace CelticEgyptianRatscrewKata.Game
                 if(nextPlayer == player)
                 {
                     var cardPlayed = m_GameState.PlayCard(player.Name);
-                    nextPlayer = m_Players[(m_Players.IndexOf(player) + 1)%m_Players.Count];
+                    nextPlayer = m_Players[(m_Players.index_of(player) + 1)%m_Players.size];
                     m_Reporter.OnCardPlayed(player, cardPlayed, GetReport());
                 }
                 else
@@ -66,7 +66,7 @@ namespace CelticEgyptianRatscrewKata.Game
         {
             AddPlayer(player);
 
-            if(m_NaughtyList.Contains(player))
+            if(m_NaughtyList.contains(player))
             {
                 m_Reporter.OnPlayerAttemptedSnapWhilePenalised(player);
                 return;
@@ -75,7 +75,7 @@ namespace CelticEgyptianRatscrewKata.Game
             {
                 m_GameState.WinStack(player.Name);
                 m_Reporter.OnStackSnapped(player, GetReport());
-                m_NaughtyList.Clear();
+                m_NaughtyList.clear();
             }
             else
             {
@@ -85,12 +85,12 @@ namespace CelticEgyptianRatscrewKata.Game
 
         private void PenalisePlayer(IPlayer player, Action<IGameEventReporter> reportPenalty)
         {
-            m_NaughtyList.Add(player);
+            m_NaughtyList.add(player);
             reportPenalty(m_Reporter);
 
-            if(m_Players.Count == m_NaughtyList.Count)
+            if(m_Players.size == m_NaughtyList.size)
             {
-                m_NaughtyList.Clear();
+                m_NaughtyList.clear();
                 m_Reporter.OnPenaltyDeadlockCleared();
             }
         }
@@ -112,8 +112,8 @@ namespace CelticEgyptianRatscrewKata.Game
             m_GameState.Clear();
 
             var shuffledDeck = m_Shuffler.Shuffle(deck);
-            var decks = m_Dealer.Deal(m_Players.Count, shuffledDeck);
-            for (var i = 0; i < decks.Count; i++)
+            var decks = m_Dealer.Deal(m_Players.size, shuffledDeck);
+            for (var i = 0; i < decks.size; i++)
             {
                 m_GameState.AddPlayer(m_Players[i].Name, decks[i]);
             }
@@ -121,11 +121,12 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public bool TryGetWinner(out IPlayer winner)
         {
-            var playersWithCards = m_Players.Where(p => m_GameState.HasCards(p.Name)).ToList();
+            var playersWithCards = new ArrayList<IPlayer>();
+            m_Players.filter(p => m_GameState.HasCards(p.Name)).foreach(p => playersWithCards.add(p));
 
-            if (!m_GameState.Stack.Any() && playersWithCards.Count() == 1)
+            if (m_GameState.Stack.fold<bool>(() => true, false) && playersWithCards.size == 1)
             {
-                winner = playersWithCards.Single();
+                winner = playersWithCards.first();
                 return true;
             }
 

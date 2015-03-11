@@ -73,6 +73,16 @@ namespace CelticEgyptianRatscrewKata
             c.m_Cards.add_all_array(cards);
         }
 
+        public Iterable<Card> Reverse()
+        {
+            var list = new LinkedList<Card>();
+            foreach(var card in m_Cards)
+            {
+                list.insert(0, card);
+            }
+            return list;
+        }
+
         public string to_string()
         {
             var output = "";

@@ -28,18 +28,18 @@ namespace CelticEgyptianRatscrewKata.Game
             m_Decks = decks;
         }
 
-        public Cards Stack { get {return new Cards(m_Stack);} }
+        public Cards Stack { owned get {return new Cards(m_Stack);} }
 
         public void AddPlayer(string playerId, Cards deck)
         {
-            if (m_Decks.ContainsKey(playerId)) throw new ArgumentException("Can't add the same player twice");
-            m_Decks.Add(playerId, deck);
+            if (m_Decks.has_key(playerId)) throw new ArgumentException.Default("Can't add the same player twice");
+            m_Decks.set(playerId, deck);
         }
 
         public Card PlayCard(string playerId, bool addToTop = true)
         {
-            if (!m_Decks.ContainsKey(playerId)) throw new ArgumentException("The selected player doesn't exist");
-            if (!m_Decks[playerId].Any()) throw new ArgumentException("The selected player doesn't have any cards left");
+            if (!m_Decks.has_key(playerId)) throw new ArgumentException.Default("The selected player doesn't exist");
+            if (m_Decks[playerId].fold<bool>(_ => true, false)) throw new ArgumentException.Default("The selected player doesn't have any cards left");
 
             var topCard = m_Decks[playerId].Pop();
 
@@ -56,7 +56,7 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public void WinStack(string playerId)
         {
-            if (!m_Decks.ContainsKey(playerId)) throw new ArgumentException("The selected player doesn't exist");
+            if (!m_Decks.has_key(playerId)) throw new ArgumentException.Default("The selected player doesn't exist");
 
             foreach (var card in m_Stack.Reverse())
             {
@@ -76,23 +76,34 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public bool HasCards(string playerId)
         {
-            if (!m_Decks.ContainsKey(playerId)) throw new ArgumentException("The selected player doesn't exist");
-            return m_Decks[playerId].Any();
+            if (!m_Decks.has_key(playerId)) throw new ArgumentException.Default("The selected player doesn't exist");
+            return m_Decks[playerId].fold<bool>(() => false, true);
         }
 
         public void Clear()
         {
             ClearStack();
-            m_Decks.Clear();
+            m_Decks.clear();
         }
 
         public GameStateReport GetCurrentStateReport()
         {
-            return Object.new(typeof(GameStateReport),
+            var stackSize = m_Stack.fold<int>((x, i) => i+1, 0);
+            var stacks = new HashMap<string, int>();
+            foreach(var entry in m_Decks.entries)
+            {
+                stacks[entry.key] = entry.value.fold<int>((x, i) => i+1, 0);
+            }
+
+            return (GameStateReport)Object.new(typeof(GameStateReport),
                 TopCard: m_Stack.HasCards ? m_Stack.CardAt(0) : null,
-                StackSize: m_Stack.Count(),
-                PlayerStacks: m_Decks.Select(
-                    x => new Tuple<string, int>(x.Key, x.Value.Count())));
+                StackSize: stackSize,
+                PlayerStacks: stacks);
         }
+    }
+
+    public errordomain ArgumentException
+    {
+        Default
     }
 }
