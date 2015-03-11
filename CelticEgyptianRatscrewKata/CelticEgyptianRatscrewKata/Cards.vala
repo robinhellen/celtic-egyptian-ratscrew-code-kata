@@ -71,6 +71,7 @@ namespace CelticEgyptianRatscrewKata
         {
             var c = new Cards(Gee.List.empty<Card>());
             c.m_Cards.add_all_array(cards);
+            return c;
         }
 
         public Iterable<Card> Reverse()
