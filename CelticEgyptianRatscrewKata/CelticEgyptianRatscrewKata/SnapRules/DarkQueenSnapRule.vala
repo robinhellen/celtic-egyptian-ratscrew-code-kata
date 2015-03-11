@@ -8,7 +8,7 @@ namespace CelticEgyptianRatscrewKata.SnapRules
 
         public bool CanSnap(Cards stack)
         {
-            var topCard = stack.FirstOrDefault();
+            var topCard = stack.fold<Card?>((c, a) => a ?? c, null);
             return s_QueenOfSpades.Equals(topCard);
         }
     }

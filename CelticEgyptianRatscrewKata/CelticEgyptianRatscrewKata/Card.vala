@@ -20,7 +20,7 @@ namespace CelticEgyptianRatscrewKata
             return @"Card $m_Rank of $m_Suit";
         }
 
-        protected bool Equals(Card other)
+        public bool Equals(Card other)
         {
             return m_Suit == other.m_Suit && m_Rank == other.m_Rank;
         }
