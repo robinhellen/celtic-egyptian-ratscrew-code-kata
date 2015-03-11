@@ -5,7 +5,7 @@ namespace CelticEgyptianRatscrewKata.Game
     /// <summary>
     /// Represents the state of the game at any point.
     /// </summary>
-    public class GameState : IGameState
+    public class GameState : Object, IGameState
     {
         private Cards m_Stack;
         private Map<string, Cards> m_Decks;

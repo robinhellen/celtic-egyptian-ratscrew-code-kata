@@ -141,7 +141,7 @@ namespace CelticEgyptianRatscrewKata.Game
         public GameStateReport State;
     }
 
-    public interface IGameEventReporter
+    public interface IGameEventReporter : Object
     {
         public abstract void OnCardPlayed(IPlayer player, Card card, TurnReport report);
         public abstract void OnStackSnapped(IPlayer player, TurnReport report);

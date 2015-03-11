@@ -2,7 +2,7 @@ using Gee;
 
 namespace CelticEgyptianRatscrewKata.Game
 {
-    public interface IGameState
+    public interface IGameState : Object
     {
         /// <summary>
         /// Gets a copy of the current stack of cards.

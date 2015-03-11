@@ -2,7 +2,7 @@ using Gee;
 
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
-    public class Shuffler : IShuffler
+    public class Shuffler : Object, IShuffler
     {
         private IRandomNumberGenerator m_RandomNumberGenerator;
 

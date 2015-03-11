@@ -2,7 +2,7 @@ using Gee;
 
 namespace CelticEgyptianRatscrewKata.SnapRules
 {
-    public class SnapValidator : ISnapValidator
+    public class SnapValidator : Object, ISnapValidator
     {
         private Iterable<IRule> m_Rules;
 

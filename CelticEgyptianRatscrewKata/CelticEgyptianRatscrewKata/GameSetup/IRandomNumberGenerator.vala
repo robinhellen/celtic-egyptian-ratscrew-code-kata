@@ -1,6 +1,6 @@
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
-    public interface IRandomNumberGenerator
+    public interface IRandomNumberGenerator : Object
     {
         public abstract int Get(int minValue, int maxValue);
     }

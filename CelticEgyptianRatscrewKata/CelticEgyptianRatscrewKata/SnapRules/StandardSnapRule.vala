@@ -1,6 +1,6 @@
 namespace CelticEgyptianRatscrewKata.SnapRules
 {
-    public class StandardSnapRule : IRule
+    public class StandardSnapRule : Object, IRule
     {
         public bool CanSnap(Cards stack)
         {

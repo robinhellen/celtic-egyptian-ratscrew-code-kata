@@ -3,7 +3,7 @@ using Gee;
 
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
-    public class Dealer : IDealer
+    public class Dealer : Object, IDealer
     {
         public Gee.List<Cards> Deal(int numberOfHands, Cards deck)
         {

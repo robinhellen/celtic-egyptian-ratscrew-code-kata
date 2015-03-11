@@ -1,6 +1,6 @@
 namespace CelticEgyptianRatscrewKata.SnapRules
 {
-    public interface ISnapValidator
+    public interface ISnapValidator : Object
     {
         public abstract bool CanSnap(Cards stack);
     }
