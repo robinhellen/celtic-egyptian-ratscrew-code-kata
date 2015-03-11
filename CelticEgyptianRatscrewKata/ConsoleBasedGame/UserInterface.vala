@@ -1,38 +1,41 @@
+using Gee;
 
 namespace ConsoleBasedGame
 {
-    class UserInterface
+    class UserInterface : Object
     {
-        public IEnumerable<PlayerInfo> GetPlayerInfoFromUserLazily()
+        public Gee.List<PlayerInfo> GetPlayerInfoFromUser()
         {
-            bool again;
+            var result = new LinkedList<PlayerInfo>();
+            bool again = false;
             do
             {
-                Console.Write("Enter player name: ");
-                var playerName = Console.ReadLine();
+                stdout.printf("Enter player name: ");
+                var playerName = stdin.read_line();
                 var playCardKey = AskForKey("Enter play card key: ");
                 var snapKey = AskForKey("Enter snap key: ");
-                yield return new PlayerInfo(playerName, playCardKey, snapKey);
+                result.add(new PlayerInfo(playerName, playCardKey, snapKey));
 
                 var createPlayerKey = AskForKey("Create another player? (y|n): ");
-                again = createPlayerKey.Equals('y');
+                again = createPlayerKey == 'y';
             } while (again);
+            return result;
         }
 
-        private static char AskForKey(string prompt)
+        private static int AskForKey(string prompt)
         {
-            Console.Write(prompt);
-            var response = Console.ReadKey().KeyChar;
-            Console.WriteLine();
+            stdout.printf(prompt);
+            var response = stdin.getc();
+            stdout.printf("/n");
             return response;
         }
 
-        public bool TryReadUserInput(out char userInput)
+        public bool TryReadUserInput(out int userInput)
         {
-            ConsoleKeyInfo keyPress = Console.ReadKey();
-            Console.WriteLine();
-            userInput = keyPress.KeyChar;
-            return keyPress.Key != ConsoleKey.Escape;
+            var keyPress = stdin.getc();
+            stdout.printf("/n");
+            userInput = keyPress;
+            return true;
         }
     }
 }

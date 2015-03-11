@@ -15,10 +15,10 @@ ConsoleBasedGame_PACKAGES=gee-0.8 CelticEgyptianRatscrewKata
 	valac-0.24 $(foreach pkg, $($*_PACKAGES),--pkg $(pkg)) -X -I. --vapidir=. --library=$* -H $*.h $($*_SOURCES) -X -fpic -X -shared -g -o $*.so -X -w
 
 ConsoleBasedGam: $(ConsoleBasedGame_SOURCES) CelticEgyptianRatscrewKata.so CelticEgyptianRatscrewKata.vapi
-	valac-0.24 $(foreach pkg, $(ConsoleBasedGame_PACKAGES),--pkg $(pkg)) -X -I. --vapidir=. --library=$* -H $*.h $(ConsoleBasedGame_SOURCES) -g -o ConsoleBasedGam -X -w
+	valac-0.24 $(foreach pkg, $(ConsoleBasedGame_PACKAGES),--pkg $(pkg)) -X -I. --vapidir=. --library=$* -H $*.h $(ConsoleBasedGame_SOURCES) -g -o ConsoleBasedGam -X -w -X CelticEgyptianRatscrewKata.so
 
 
 clean:
 	rm -f *.so *.h *.vapi ConsoleBasedGam
-	rm -f $(patsubst %.vala,%.vala.c,$(SOURCES) $(CelticEgyptianRatscrewKata_SOURCES))
-	rm -f $(patsubst %.vala,%.c,$(SOURCES) $(CelticEgyptianRatscrewKata_SOURCES))
+	rm -f $(patsubst %.vala,%.vala.c,$(CelticEgyptianRatscrewKata_SOURCES) $(ConsoleBasedGame_SOURCES))
+	rm -f $(patsubst %.vala,%.c,$(CelticEgyptianRatscrewKata_SOURCES) $(ConsoleBasedGame_SOURCES))

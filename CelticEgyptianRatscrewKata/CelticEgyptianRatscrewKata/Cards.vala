@@ -2,7 +2,7 @@ using Gee;
 
 namespace CelticEgyptianRatscrewKata
 {
-    public class Cards : Object, Iterable<Card>, Traversable<Card>
+    public class Cards : Object, Traversable<Card>, Iterable<Card>
     {
         private Gee.List<Card> m_Cards;
 

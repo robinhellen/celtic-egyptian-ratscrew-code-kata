@@ -1,3 +1,4 @@
+using Gee;
 
 using CelticEgyptianRatscrewKata;
 using CelticEgyptianRatscrewKata.Game;
@@ -6,43 +7,43 @@ namespace ConsoleBasedGame
 {
     class Program
     {
-        static void Main(string[] args)
+        static void main(string[] args)
         {
             var reporter = new ConsoleEventReporter();
             GameController game = new GameFactory().Create(reporter
                 );
 
             var userInterface = new UserInterface();
-            IEnumerable<PlayerInfo> playerInfos = userInterface.GetPlayerInfoFromUserLazily();
-            var keyActionMap = new Dictionary<char, Tuple<IPlayer, PlayerAction>>();
+            Gee.List<PlayerInfo> playerInfos = userInterface.GetPlayerInfoFromUser();
+            var keyActionMap = new HashMap<int, ActionWrapper>();
 
             foreach (PlayerInfo playerInfo in playerInfos)
             {
                 var player = new Player(playerInfo.PlayerName);
                 game.AddPlayer(player);
-                keyActionMap[playerInfo.PlayCardKey] = new Tuple<IPlayer, PlayerAction>(player, PlayerAction.PlayCard);
-                keyActionMap[playerInfo.SnapKey] = new Tuple<IPlayer, PlayerAction>(player, PlayerAction.Snap);
+                keyActionMap[playerInfo.PlayCardKey] = (ActionWrapper) Object.new(typeof(ActionWrapper), Player: player, Action: PlayerAction.PlayCard);
+                keyActionMap[playerInfo.SnapKey] = (ActionWrapper) Object.new(typeof(ActionWrapper), Player: player, Action: PlayerAction.Snap);
             }
 
             game.StartGame(GameFactory.CreateFullDeckOfCards());
 
-            char userInput;
+            int userInput;
             while (userInterface.TryReadUserInput(out userInput))
             {
-                Tuple<IPlayer, PlayerAction> action;
-                if(!keyActionMap.TryGetValue(userInput, out action))
+                ActionWrapper action = keyActionMap[userInput];
+                if(action == null)
                     continue;
 
-                switch (action.Item2)
+                switch (action.Action)
                 {
                     case PlayerAction.PlayCard:
-                        game.PlayCard(action.Item1);
+                        game.PlayCard(action.Player);
                         break;
                     case PlayerAction.Snap:
-                        game.AttemptSnap(action.Item1);
+                        game.AttemptSnap(action.Player);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        assert_not_reached();
                 }
                 IPlayer p;
                 if (game.TryGetWinner(out p))
@@ -51,52 +52,58 @@ namespace ConsoleBasedGame
         }
     }
 
-    public class ConsoleEventReporter : IGameEventReporter
+    public class ConsoleEventReporter : Object, IGameEventReporter
     {
         public void OnCardPlayed(IPlayer player, Card card, TurnReport report)
         {
-            Console.WriteLine("{0} played the {1} of {2}.", player.Name, card.Rank, card.Suit);
+            stdout.printf("$(player.Name) played the $(card.Rank) of $(card.Suit).");
             WriteTurnReport(report);
         }
 
         private void WriteTurnReport(TurnReport report)
         {
-            Console.WriteLine("Next to play is {0}.", report.NextPlayer.Name);
-            Console.WriteLine("There are {0} cards in the stack.", report.State.StackSize);
+            stdout.printf("Next to play is $(report.NextPlayer.Name).");
+            stdout.printf("There are $(report.State.StackSize) cards in the stack.");
             if(report.State.StackSize != 0)
-                Console.WriteLine(" The top card is {0}",report.State.TopCard);
-            foreach (var playerStack in report.State.PlayerStacks)
+                stdout.printf(" The top card is  the $(report.State.TopCard.Rank) of $(report.State.TopCard.Suit)");
+            foreach (var playerStack in report.State.PlayerStacks.entries)
             {
-                Console.WriteLine("{0} has {1} cards left", playerStack.Item1, playerStack.Item2);
+                stdout.printf("$(playerStack.key) has $(playerStack.value) cards left");
             }
         }
 
         public void OnStackSnapped(IPlayer player, TurnReport report)
         {
-            Console.WriteLine("{0} snapped the stack.", player.Name);
+            stdout.printf("$(player.Name) snapped the stack.");
             WriteTurnReport(report);
         }
 
         public void OnPlayerPenalised(IPlayer player)
         {
-            Console.WriteLine("{0} tried to snap when not valid and is now in the sin bin.", player.Name);
+            stdout.printf("$(player.Name) tried to snap when not valid and is now in the sin bin.");
         }
 
         public void OnPlayerAttemptedSnapWhilePenalised(IPlayer player)
         {
-            Console.WriteLine("Naughty player, you're in the sin bin.");
+            stdout.printf("Naughty player, you're in the sin bin.");
         }
 
         public void OnPenaltyDeadlockCleared()
         {
-            Console.WriteLine("Deadlock cleared.");
+            stdout.printf("Deadlock cleared.");
         }
 
         public void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report)
         {
-            Console.WriteLine("{0} played {1} of {2} out of turn and is now in the sin bin.", player.Name, card.Rank, card.Suit);
+            stdout.printf("$(player.Name) played $(card.Rank) of $(card.Suit) out of turn and is now in the sin bin.");
             WriteTurnReport(report);
         }
+    }
+
+    internal class ActionWrapper : Object
+    {
+        public PlayerAction Action {get; construct set;}
+        public IPlayer Player {get; construct set;}
     }
 
     internal enum PlayerAction
