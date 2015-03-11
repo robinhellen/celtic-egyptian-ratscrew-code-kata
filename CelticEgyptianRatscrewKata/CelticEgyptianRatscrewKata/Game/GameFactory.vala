@@ -1,3 +1,5 @@
+using Gee;
+
 using CelticEgyptianRatscrewKata.GameSetup;
 using CelticEgyptianRatscrewKata.SnapRules;
 
@@ -13,12 +15,15 @@ namespace CelticEgyptianRatscrewKata.Game
                 new SandwichSnapRule(),
                 new StandardSnapRule(),
             };
-            return new GameController(new GameState(), new SnapValidator(rules), new Dealer(), new Shuffler(), reporter);
+            var ruleList = new ArrayList<IRule>();
+            ruleList.add_all_array(rules);
+
+            return new GameController(new GameState.Default(), new SnapValidator(ruleList), new Dealer(), new Shuffler.Default(), reporter);
         }
 
         public static Cards CreateFullDeckOfCards()
         {
-            return Cards.With(
+            return Cards.With({
                 new Card(Suit.Clubs, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Two),
                 new Card(Suit.Clubs, Rank.Three),
@@ -32,7 +37,7 @@ namespace CelticEgyptianRatscrewKata.Game
                 new Card(Suit.Clubs, Rank.Jack),
                 new Card(Suit.Clubs, Rank.Queen),
                 new Card(Suit.Clubs, Rank.King),
-                
+
                 new Card(Suit.Diamonds, Rank.Ace),
                 new Card(Suit.Diamonds, Rank.Two),
                 new Card(Suit.Diamonds, Rank.Three),
@@ -46,7 +51,7 @@ namespace CelticEgyptianRatscrewKata.Game
                 new Card(Suit.Diamonds, Rank.Jack),
                 new Card(Suit.Diamonds, Rank.Queen),
                 new Card(Suit.Diamonds, Rank.King),
-                
+
                 new Card(Suit.Hearts, Rank.Ace),
                 new Card(Suit.Hearts, Rank.Two),
                 new Card(Suit.Hearts, Rank.Three),
@@ -60,7 +65,7 @@ namespace CelticEgyptianRatscrewKata.Game
                 new Card(Suit.Hearts, Rank.Jack),
                 new Card(Suit.Hearts, Rank.Queen),
                 new Card(Suit.Hearts, Rank.King),
-                
+
                 new Card(Suit.Spades, Rank.Ace),
                 new Card(Suit.Spades, Rank.Two),
                 new Card(Suit.Spades, Rank.Three),
@@ -74,6 +79,7 @@ namespace CelticEgyptianRatscrewKata.Game
                 new Card(Suit.Spades, Rank.Jack),
                 new Card(Suit.Spades, Rank.Queen),
                 new Card(Suit.Spades, Rank.King)
+            }
                 );
         }
     }

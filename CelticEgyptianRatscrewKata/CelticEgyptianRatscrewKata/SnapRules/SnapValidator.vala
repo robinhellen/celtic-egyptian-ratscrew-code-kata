@@ -13,7 +13,7 @@ namespace CelticEgyptianRatscrewKata.SnapRules
 
         public bool CanSnap(Cards stack)
         {
-            return m_Rules.Any(rule => rule.CanSnap(stack));
+            return m_Rules.fold<bool>((rule, b) => b || rule.CanSnap(stack), false);
         }
     }
 }
