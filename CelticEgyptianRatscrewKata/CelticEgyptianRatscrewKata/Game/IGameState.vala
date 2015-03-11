@@ -38,10 +38,10 @@ namespace CelticEgyptianRatscrewKata.Game
         public abstract GameStateReport GetCurrentStateReport();
     }
 
-    public class GameStateReport
+    public class GameStateReport : Object
     {
-        public Card TopCard;
-        public int StackSize;
-        public Map<string, int> PlayerStacks;
+        public Card TopCard {get; construct set;}
+        public int StackSize {get; construct set;}
+        public Map<string, int> PlayerStacks {get; construct set;}
     }
 }

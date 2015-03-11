@@ -10,8 +10,7 @@ namespace ConsoleBasedGame
         static void main(string[] args)
         {
             var reporter = new ConsoleEventReporter();
-            GameController game = new GameFactory().Create(reporter
-                );
+            GameController game = new GameFactory().Create(reporter);
 
             var userInterface = new UserInterface();
             Gee.List<PlayerInfo> playerInfos = userInterface.GetPlayerInfoFromUser();
@@ -56,46 +55,46 @@ namespace ConsoleBasedGame
     {
         public void OnCardPlayed(IPlayer player, Card card, TurnReport report)
         {
-            stdout.printf("$(player.Name) played the $(card.Rank) of $(card.Suit).");
+            stdout.printf(@"$(player.Name) played the $(card.Rank) of $(card.Suit).");
             WriteTurnReport(report);
         }
 
         private void WriteTurnReport(TurnReport report)
         {
-            stdout.printf("Next to play is $(report.NextPlayer.Name).");
-            stdout.printf("There are $(report.State.StackSize) cards in the stack.");
+            stdout.printf(@"Next to play is $(report.NextPlayer.Name).");
+            stdout.printf(@"There are $(report.State.StackSize) cards in the stack.");
             if(report.State.StackSize != 0)
-                stdout.printf(" The top card is  the $(report.State.TopCard.Rank) of $(report.State.TopCard.Suit)");
+                stdout.printf(@" The top card is  the $(report.State.TopCard.Rank) of $(report.State.TopCard.Suit)");
             foreach (var playerStack in report.State.PlayerStacks.entries)
             {
-                stdout.printf("$(playerStack.key) has $(playerStack.value) cards left");
+                stdout.printf(@"$(playerStack.key) has $(playerStack.value) cards left");
             }
         }
 
         public void OnStackSnapped(IPlayer player, TurnReport report)
         {
-            stdout.printf("$(player.Name) snapped the stack.");
+            stdout.printf(@"$(player.Name) snapped the stack.");
             WriteTurnReport(report);
         }
 
         public void OnPlayerPenalised(IPlayer player)
         {
-            stdout.printf("$(player.Name) tried to snap when not valid and is now in the sin bin.");
+            stdout.printf(@"$(player.Name) tried to snap when not valid and is now in the sin bin.");
         }
 
         public void OnPlayerAttemptedSnapWhilePenalised(IPlayer player)
         {
-            stdout.printf("Naughty player, you're in the sin bin.");
+            stdout.printf(@"Naughty player, you're in the sin bin.");
         }
 
         public void OnPenaltyDeadlockCleared()
         {
-            stdout.printf("Deadlock cleared.");
+            stdout.printf(@"Deadlock cleared.");
         }
 
         public void OnPlayerPlayedOutOfTurn(IPlayer player, Card card, TurnReport report)
         {
-            stdout.printf("$(player.Name) played $(card.Rank) of $(card.Suit) out of turn and is now in the sin bin.");
+            stdout.printf(@"$(player.Name) played $(card.Rank) of $(card.Suit) out of turn and is now in the sin bin.");
             WriteTurnReport(report);
         }
     }

@@ -39,7 +39,7 @@ namespace CelticEgyptianRatscrewKata.Game
         public Card PlayCard(string playerId, bool addToTop = true)
         {
             if (!m_Decks.has_key(playerId)) throw new ArgumentException.Default("The selected player doesn't exist");
-            if (m_Decks[playerId].fold<bool>(_ => true, false)) throw new ArgumentException.Default("The selected player doesn't have any cards left");
+            if (m_Decks[playerId].fold<bool>(_ => false, true)) throw new ArgumentException.Default("The selected player doesn't have any cards left");
 
             var topCard = m_Decks[playerId].Pop();
 
@@ -77,7 +77,7 @@ namespace CelticEgyptianRatscrewKata.Game
         public bool HasCards(string playerId)
         {
             if (!m_Decks.has_key(playerId)) throw new ArgumentException.Default("The selected player doesn't exist");
-            return m_Decks[playerId].fold<bool>(() => false, true);
+            return m_Decks[playerId].fold<bool>(() => true, false);
         }
 
         public void Clear()

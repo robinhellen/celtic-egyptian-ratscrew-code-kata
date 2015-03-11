@@ -10,8 +10,8 @@ namespace ConsoleBasedGame
             bool again = false;
             do
             {
-                stdout.printf("Enter player name: ");
-                var playerName = stdin.read_line();
+                GLib.stdout.printf("Enter player name: ");
+                var playerName = GLib.stdin.read_line();
                 var playCardKey = AskForKey("Enter play card key: ");
                 var snapKey = AskForKey("Enter snap key: ");
                 result.add(new PlayerInfo(playerName, playCardKey, snapKey));
@@ -22,19 +22,17 @@ namespace ConsoleBasedGame
             return result;
         }
 
-        private static int AskForKey(string prompt)
+        private static char AskForKey(string prompt)
         {
-            stdout.printf(prompt);
-            var response = stdin.getc();
-            stdout.printf("/n");
-            return response;
+            GLib.stdout.printf(prompt);
+            var response = GLib.stdin.read_line();
+            return response[0];
         }
 
-        public bool TryReadUserInput(out int userInput)
+        public bool TryReadUserInput(out char userInput)
         {
-            var keyPress = stdin.getc();
-            stdout.printf("/n");
-            userInput = keyPress;
+            var keyPress = GLib.stdin.read_line();
+            userInput = keyPress[0];
             return true;
         }
     }

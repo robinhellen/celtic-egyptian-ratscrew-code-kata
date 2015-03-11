@@ -9,7 +9,7 @@ CelticEgyptianRatscrewKata_PACKAGES=gee-0.8
 
 CBG_SOURCE_DIRS=.
 ConsoleBasedGame_SOURCES=$(foreach folder, $(CBG_SOURCE_DIRS),$(wildcard ConsoleBasedGame/$(folder)/*.vala))
-ConsoleBasedGame_PACKAGES=gee-0.8 CelticEgyptianRatscrewKata
+ConsoleBasedGame_PACKAGES=gee-0.8 CelticEgyptianRatscrewKata posix
 
 %.so %.vapi %.h: $$($$*_SOURCES)
 	valac-0.24 $(foreach pkg, $($*_PACKAGES),--pkg $(pkg)) -X -I. --vapidir=. --library=$* -H $*.h $($*_SOURCES) -X -fpic -X -shared -g -o $*.so -X -w
